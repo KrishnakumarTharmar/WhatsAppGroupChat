@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ person.name }}</title>
+    <style>
+        body {
+            background-color: #e5ddd5;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            padding: 0;
+        }
+    </style>
+
+<body>
+    <h1>{{ person.name }}</h1>
+
+    <div>
+        {% for message in messages %}
+        <p>{{ message.message }} - {{ message.timestamp }}</p>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <label for="entered_text">Enter Text:</label>
+        <input type="text" name="entered_text" required>
+        <button type="submit">Send</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Groups</title>
+    <style>
+        body {
+            background-color: #e5ddd5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #075e54;
+            color: #ffffff;
+            padding: 10px;
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-link {
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>WhatsApp Groups</h1>
+    <ul>
+        {% for group in groups %}
+        <li>
+            <a href="{% url 'group_chat' group.id %}" target="_blank">
+                <h2>{{ group.name }}</h2>
+            </a>
+            <p><strong>Members:</strong></p>
+            <ul>
+                {% for person in group.person_set.all %}
+                <li>
+                    <a class="member-link" href="{% url 'member_detail' person.id group.id %}" target="_blank">
+                        {{ person.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Common Members:</h2>
+    {% if common_members %}
+    <ul>
+        {% for common_member in common_members %}
+        <li>
+            {{ common_member.person_name }}
+            (Groups: {{ common_member.group_names }})
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No common members found</p>
+    {% endif %}
+</body>
+
+</html>
